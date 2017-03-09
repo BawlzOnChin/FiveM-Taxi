@@ -47,14 +47,8 @@ for _, item in pairs(peds) do
 	TaskStartScenarioInPlace(ped, "WORLD_HUMAN_GUARD_STAND_PATROL", 0, true)
 	SetPedCanRagdoll(ped, false)
 	SetPedDiesWhenInjured(ped, false)
-	SetCreateRandomCops(true)
-	if IsPedDeadOrDying(ped, 1) then
-		SetPlayerWantedLevel(PlayerId(), 4, false)
-		SetPlayerWantedLevelNow(PlayerId(), false)
-	else
-		SetPlayerWantedLevel(PlayerId(), 1, false)
-	 end
 	end
+
 end)
 
 jobs = {peds = {}, flag = {}, blip = {}, cars = {}, coords = {cx={}, cy={}, cz={}}}
