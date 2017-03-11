@@ -5,15 +5,6 @@ Enter a taxi cab at the Downtown Cab Company.
 Press delete when you are inside a taxi vehicle and drive around Los Santos to find some clients.
 Drive them to destination point and find anotherone.
 
-## Changes
-
-- Added some taxi cabs at Downtab Cab.
-- Added more coordinates.
-
-## Planned  
-
-- Get money when the mission is completed.
-
 ## Installation
 
 1. [Download](https://github.com/FiveM-Scripts/FiveM-Taxi/archive/master.zip)
