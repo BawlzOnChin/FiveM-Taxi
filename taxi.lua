@@ -1,4 +1,6 @@
 onJob = 0
+local player = PlayerId()
+
 -- Configure the coordinates where the taxi cabs should be placed.
 local cabs = {
    { hash=0xC703DB5F, x=918.592, y=-166.732, z=74.250, a=100.938 },
@@ -56,6 +58,7 @@ jobs = {peds = {}, flag = {}, blip = {}, cars = {}, coords = {cx={}, cy={}, cz={
 function StartJob(jobid)
 	if jobid == 1 then -- taxi
 		showLoadingPromt("Loading taxi mission", 2000, 3)
+
 		jobs.coords.cx[1],jobs.coords.cy[1],jobs.coords.cz[1] = 293.476,-590.163,42.7371
 		jobs.coords.cx[2],jobs.coords.cy[2],jobs.coords.cz[2] = 253.404,-375.86,44.0819
 		jobs.coords.cx[3],jobs.coords.cy[3],jobs.coords.cz[3] = 120.808,-300.416,45.1399
@@ -247,7 +250,7 @@ Citizen.CreateThread(function()
 								Citizen.InvokeNative(0x86A652570E5F25DD,Citizen.PointerValueIntInitialized(jobs.blip[1]))
 								jobs.blip[1] = nil
 							end
-							DrawMissionText("Your client is ~r~dead~w~. Find another one.", 5000)
+							DrawMissionText("The client is ~r~dead~w~. Find another one.", 5000)
 						else
 							if jobs.flag[1] == 1 and jobs.flag[2] > 0 then
 								Wait(1000)
@@ -306,10 +309,10 @@ Citizen.CreateThread(function()
 										jobs.flag[2] = GetRandomIntInRange(1, 62)
 										local street = table.pack(GetStreetNameAtCoord(jobs.coords.cx[jobs.flag[2]],jobs.coords.cy[jobs.flag[2]],jobs.coords.cz[jobs.flag[2]]))
 										if street[2] ~= 0 and street[2] ~= nil then
-											local streetname = string.format("~c~Take me to %s, nearby %s", GetStreetNameFromHashKey(street[1]),GetStreetNameFromHashKey(street[2]))
+											local streetname = string.format("~w~Take me to~y~ %s~w~, nearby~y~ %s", GetStreetNameFromHashKey(street[1]),GetStreetNameFromHashKey(street[2]))
 											DrawMissionText(streetname, 5000)
 										else
-											local streetname = string.format("~c~Take me to the %s", GetStreetNameFromHashKey(street[1]))
+											local streetname = string.format("~w~Take me to the~y~ %s", GetStreetNameFromHashKey(street[1]))
 											DrawMissionText(streetname, 5000)
 										end
 										jobs.blip[1] = AddBlipForCoord(jobs.coords.cx[jobs.flag[2]],jobs.coords.cy[jobs.flag[2]],jobs.coords.cz[jobs.flag[2]])
@@ -332,12 +335,14 @@ Citizen.CreateThread(function()
 									Citizen.InvokeNative(0xB736A491E64A32CF,Citizen.PointerValueIntInitialized(jobs.peds[1]))
 									jobs.peds[1] = nil
 									Wait(6000)
-									DrawMissionText("~g~You have delivered the client!", 5000)
+
+                  TriggerServerEvent('taxi:success')
+                  DrawMissionText("~g~You have delivered the client!", 5000)
 									-- pay money on something
 									Wait(8000)
 									DrawMissionText("Drive around and look for new ~h~~y~customers~w~.", 10000)
 									jobs.flag[1] = 0
-									jobs.flag[2] = 59+GetRandomIntInRange(1, 61)
+									jobs.flag[2] = 59+GetRandomIntInRange(1, 90)
 								end
 							end
 						end
@@ -372,7 +377,7 @@ Citizen.CreateThread(function()
 									SetBlipCategory(lblip, 3)
 								else
 									jobs.flag[1] = 0
-									jobs.flag[2] = 59+GetRandomIntInRange(1, 61)
+									jobs.flag[2] = 59+GetRandomIntInRange(1, 90)
 									DrawMissionText("Drive around and look for ~h~~y~customers~w~.", 10000)
 								end
 							end
