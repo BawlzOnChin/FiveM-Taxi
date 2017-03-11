@@ -3,7 +3,7 @@
 
 Enter a taxi cab at the Downtown Cab Company.
 Press delete when you are inside a taxi vehicle and drive around Los Santos to find some clients.
-Drive them to destination point and find anotherone.
+Drive them to destination point and find another one.
 
 ## Installation
 
